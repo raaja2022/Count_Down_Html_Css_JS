@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countdown</title>
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="count.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="heading">
+        <h3>Countdown Till</h3>
+        <h1>15 AUG 2022</h1>
+      </div>
+      <div class="countdown">
+        <div class="box">
+          <span class="num" id="day-box">00</span>
+          <span class="text">Days</span>
+        </div>
+        <div class="box">
+          <span class="num" id="hr-box">00</span>
+          <span class="text">Hours</span>
+        </div>
+        <div class="box">
+          <span class="num" id="min-box">00</span>
+          <span class="text">Minutes</span>
+        </div>
+        <div class="box">
+          <span class="num" id="sec-box">00</span>
+          <span class="text">Seconds</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+      let dayBox = document.getElementById("day-box");
+      let hrBox = document.getElementById("hr-box");
+      let minBox = document.getElementById("min-box");
+      let secBox = document.getElementById("sec-box");
+      let endDate = new Date(2022, 8, 15, 00, 00);
+      let endTime = endDate.getTime();
+
+      function countdown() {
+        let todayDate = new Date();
+        let todayTime = todayDate.getTime();
+        let remainingTime = endTime - todayTime;
+        let oneMin = 60 * 1000;
+        let oneHr = 60 * oneMin;
+        let oneDay = 24 * oneHr;
+
+        let addZeroes = (num) => (num < 10 ? `0${num}` : num);
+
+        if (endTime < todayTime) {
+          clearInterval(i);
+          document.querySelector(
+            ".countdown"
+          ).innerHTML = `<h1>Countdown had expired!</h1>`;
+        } else {
+          let daysLeft = Math.floor(remainingTime / oneDay);
+          let hrsLeft = Math.floor((remainingTime % oneDay) / oneHr);
+          let minsLeft = Math.floor((remainingTime % oneHr) / oneMin);
+          let secsLeft = Math.floor((remainingTime % oneMin) / 1000);
+
+          dayBox.textContent = addZeroes(daysLeft);
+          hrBox.textContent = addZeroes(hrsLeft);
+          minBox.textContent = addZeroes(minsLeft);
+          secBox.textContent = addZeroes(secsLeft);
+        }
+      }
+      let i = setInterval(countdown, 1000);
+      countdown();
+    </script>
+  </body>
+</html>
